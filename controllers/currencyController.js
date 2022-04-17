@@ -4,6 +4,8 @@ module.exports.getCurrency = async (req, res) => {
   // Add code like USD, EUR, GBR
   const code = req.params.id;
 
+ 
+
   if (code === "USD" || code === "EUR") {
     const codeUrl = code.toLowerCase();
 
@@ -24,7 +26,7 @@ module.exports.getCurrency = async (req, res) => {
     let min = Math.min(...arr);
     let max = Math.max(...arr);
 
-    return res.send({
+    return res.status(200).send({
       currentValue: obj_current,
       "maxValue in las 30 days": max,
       "minValue in last 30 days": min,
@@ -34,7 +36,7 @@ module.exports.getCurrency = async (req, res) => {
   // If the currency code provided is not supported by the API, this message should inform the user.
 
 else {
-    return res.send(
+    return res.status(500).send(
       `Sorry, your requested currency ${code} is not supported or is invalid`
     );
   }
